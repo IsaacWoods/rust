@@ -38,6 +38,9 @@ cfg_if::cfg_if! {
     } else if #[cfg(target_os = "wasi")] {
         mod wasi;
         pub use self::wasi::*;
+    } else if #[cfg(target_os = "pebble")] {
+        mod pebble;
+        pub use self::pebble::*;
     } else if #[cfg(target_arch = "wasm32")] {
         mod wasm;
         pub use self::wasm::*;
@@ -61,6 +64,7 @@ cfg_if::cfg_if! {
         #[stable(feature = "rust1", since = "1.0.0")]
         pub use self::ext as unix_ext;
     } else if #[cfg(any(target_os = "hermit",
+                        target_os = "pebble",
                         target_arch = "wasm32",
                         all(target_vendor = "fortanix", target_env = "sgx")))] {
         // On wasm right now the module below doesn't compile
@@ -85,6 +89,7 @@ cfg_if::cfg_if! {
         #[stable(feature = "rust1", since = "1.0.0")]
         pub use self::ext as windows_ext;
     } else if #[cfg(any(target_os = "hermit",
+                        target_os = "pebble",
                         target_arch = "wasm32",
                         all(target_vendor = "fortanix", target_env = "sgx")))] {
         // On wasm right now the shim below doesn't compile, so
