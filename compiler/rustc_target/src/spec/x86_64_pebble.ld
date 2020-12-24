@@ -7,6 +7,7 @@ PHDRS {
     text PT_LOAD;
     rodata PT_LOAD FLAGS(4);
     data PT_LOAD;
+    tls PT_TLS;
     caps PT_NOTE;
 }
 
@@ -30,13 +31,20 @@ SECTIONS {
 
     .data : {
         *(.data .data.*)
-        . = ALIGN(4K);
+        /* No need to align, because .bss is aligned below */
     } :data
 
     .bss : {
         *(.bss .bss.*)
         . = ALIGN(4K);
     } :data
+
+    .tdata : {
+        *(.tdata .tdata.*)
+    } :tls
+    .tbss : {
+        *(.tbss .tbss.*)
+    } :tls
 
     .caps : {
         KEEP(*(.caps))

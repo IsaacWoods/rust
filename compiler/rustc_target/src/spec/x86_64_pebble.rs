@@ -21,6 +21,8 @@ pub fn target() -> Target {
         target_family: None,
         executables: true,
 
+        has_elf_tls: true,
+
         linker: Some("rust-lld".to_owned()),
         lld_flavor: LldFlavor::Ld,
         linker_is_gnu: true,
